@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ProductCard } from "./components"
+import { useState } from "react"
+import styled from "styled-components"
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [title, setTitle] = useState('Sample')
+  const [origin, setOrigin] = useState('Country')
+  const [price, setPrice] = useState(34900)
+  const [currency, setCurrency] = useState('RUB')
+  const [imageUrl, setImageUrl] = useState('https://placehold.co/200x100')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Wrapper>
+      <input type="text" placeholder="title" onChange={(e) => setTitle(e.target.value)} value={title} />
+      <input type="text" placeholder="origin" onChange={(e) => setOrigin(e.target.value)} value={origin} />
+      <input type="text" placeholder="price" onChange={(e) => setPrice(parseInt(e.target.value))} value={price} />
+      <input type="text" placeholder="currency" onChange={(e) => setCurrency(e.target.value)} value={currency} />
+      <input type="text" placeholder="imageUrl" onChange={(e) => setImageUrl(e.target.value)} value={imageUrl} />
+
+      <ProductCard
+        title={title}
+        origin={origin}
+        price={price}
+        currency={currency}
+        imageUrl={imageUrl}
+      />
+    </Wrapper>
   )
 }
 
-export default App
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
