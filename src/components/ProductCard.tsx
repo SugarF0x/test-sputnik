@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { useMemo } from "react"
 
 export interface ProductCardProps {
   title: string
@@ -11,6 +12,11 @@ export interface ProductCardProps {
 export const ProductCard = (props: ProductCardProps) => {
   const { title, imageUrl, origin, currency, price } = props
 
+  const formattedPrice = useMemo(() => {
+    if (!SUPPORTED_CURRENCIES_FOR_FORMAT.has(currency)) return (price / 100).toFixed(2)
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency }).format(price / 100)
+  }, [currency, price])
+
   return (
     <Wrapper>
       <HeaderContainer>
@@ -19,14 +25,15 @@ export const ProductCard = (props: ProductCardProps) => {
           <Origin>{origin}</Origin>
         </TitleContainer>
         <PriceContainer>
-          <Price>{price}</Price>
-          <Currency>{currency}</Currency>
+          <Price>{formattedPrice}</Price>
         </PriceContainer>
       </HeaderContainer>
       <Image src={imageUrl} alt="some_image.jpeg" />
     </Wrapper>
   )
 }
+
+const SUPPORTED_CURRENCIES_FOR_FORMAT = new Set(['RUB', 'EUR', 'USD'])
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,11 +77,6 @@ const Origin = styled.span`
 `
 
 const Price = styled.span``
-
-const Currency = styled.span`
-  opacity: .75;
-  font-size: .75em;
-`
 
 const Image = styled.img`
   max-height: 300px;
