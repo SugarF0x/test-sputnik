@@ -23,23 +23,59 @@ export const ProductCard = (props: ProductCardProps) => {
           <Currency>{currency}</Currency>
         </PriceContainer>
       </HeaderContainer>
-      <img src={imageUrl} alt="some_image.jpeg"/>
+      <Image src={imageUrl} alt="some_image.jpeg" />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: steelblue;
   border-radius: 12px;
   padding: 24px 12px;
   max-width: 600px;
+  max-height: 400px;
   flex-grow: 1;
+  gap: 8px;
 `
 
-const HeaderContainer = styled.div``
-const TitleContainer = styled.div``
-const PriceContainer = styled.div``
-const Title = styled.text``
-const Origin = styled.text``
-const Price = styled.text``
-const Currency = styled.text``
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 500px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+`
+
+const PriceContainer = styled.div`
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+`
+
+const Title = styled.span``
+
+const Origin = styled.span`
+  opacity: .75;
+  font-size: .75em;
+`
+
+const Price = styled.span``
+
+const Currency = styled.span`
+  opacity: .75;
+  font-size: .75em;
+`
+
+const Image = styled.img`
+  max-height: 300px;
+`
