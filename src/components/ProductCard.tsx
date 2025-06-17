@@ -12,10 +12,7 @@ export interface ProductCardProps {
 export const ProductCard = (props: ProductCardProps) => {
   const { title, imageUrl, origin, currency, price } = props
 
-  const formattedPrice = useMemo(() => {
-    if (!SUPPORTED_CURRENCIES_FOR_FORMAT.has(currency)) return (price / 100).toFixed(2)
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency }).format(price / 100)
-  }, [currency, price])
+  const formattedPrice = useMemo(() => new Intl.NumberFormat('ru-RU', { style: 'currency', currency }).format(price / 100), [currency, price])
 
   return (
     <Wrapper>
@@ -33,7 +30,6 @@ export const ProductCard = (props: ProductCardProps) => {
   )
 }
 
-const SUPPORTED_CURRENCIES_FOR_FORMAT = new Set(['RUB', 'EUR', 'USD'])
 
 const Wrapper = styled.div`
   display: flex;
